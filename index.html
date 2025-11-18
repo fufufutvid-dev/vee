@@ -64,14 +64,14 @@
         .logo-mark {
             width: 4px;
             height: 60px;
-            background: linear-gradient(180deg, transparent, #d4af37, transparent);
+            background: linear-gradient(180deg, transparent, #ff1493, transparent);
             margin: 0 auto 40px;
             animation: glow 3s ease-in-out infinite;
         }
 
         @keyframes glow {
             0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; box-shadow: 0 0 30px #d4af37; }
+            50% { opacity: 1; box-shadow: 0 0 30px #ff1493; }
         }
 
         .profile-wrapper {
@@ -80,7 +80,7 @@
 
         .profile-box {
             background: rgba(20, 20, 20, 0.6);
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(255, 20, 147, 0.2);
             backdrop-filter: blur(20px);
             padding: 80px 60px;
             position: relative;
@@ -94,7 +94,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(255, 255, 255, 0.02));
+            background: linear-gradient(135deg, rgba(255, 20, 147, 0.05), rgba(255, 105, 180, 0.02));
             opacity: 0;
             transition: opacity 0.6s;
         }
@@ -107,7 +107,7 @@
             position: absolute;
             width: 30px;
             height: 30px;
-            border: 1px solid #d4af37;
+            border: 1px solid #ff1493;
         }
 
         .corner.tl { top: 20px; left: 20px; border-right: none; border-bottom: none; }
@@ -130,7 +130,7 @@
             bottom: -10px;
             border: 2px solid transparent;
             border-radius: 50%;
-            background: linear-gradient(45deg, #d4af37, #f4e4c1, #d4af37);
+            background: linear-gradient(45deg, #ff1493, #ff69b4, #ffb6d9);
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
@@ -163,7 +163,7 @@
             font-weight: 300;
             letter-spacing: 8px;
             margin-bottom: 15px;
-            background: linear-gradient(90deg, #d4af37, #f4e4c1, #d4af37);
+            background: linear-gradient(90deg, #ff1493, #ff69b4, #ffb6d9);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -172,7 +172,7 @@
         .handle {
             font-size: 16px;
             letter-spacing: 4px;
-            color: rgba(212, 175, 55, 0.6);
+            color: rgba(255, 20, 147, 0.6);
             font-weight: 300;
             margin-bottom: 50px;
         }
@@ -180,7 +180,7 @@
         .divider {
             width: 120px;
             height: 1px;
-            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            background: linear-gradient(90deg, transparent, #ff1493, transparent);
             margin: 40px auto;
         }
 
@@ -198,8 +198,8 @@
         .cta-link {
             display: inline-block;
             padding: 18px 50px;
-            border: 1px solid #d4af37;
-            color: #d4af37;
+            border: 1px solid #ff1493;
+            color: #ff1493;
             text-decoration: none;
             font-size: 13px;
             letter-spacing: 3px;
@@ -218,7 +218,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: #d4af37;
+            background: #ff1493;
             transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1);
             z-index: -1;
         }
@@ -226,7 +226,7 @@
         .cta-link:hover {
             color: #0a0a0a;
             transform: translateY(-2px);
-            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 40px rgba(255, 20, 147, 0.3);
         }
 
         .cta-link:hover::before {
@@ -239,7 +239,7 @@
             gap: 100px;
             margin-top: 80px;
             padding-top: 60px;
-            border-top: 1px solid rgba(212, 175, 55, 0.15);
+            border-top: 1px solid rgba(255, 20, 147, 0.15);
         }
 
         .metric {
@@ -250,7 +250,7 @@
             font-family: 'Cormorant Garamond', serif;
             font-size: 48px;
             font-weight: 300;
-            color: #d4af37;
+            color: #ff1493;
             display: block;
             margin-bottom: 10px;
             letter-spacing: 2px;
@@ -267,7 +267,7 @@
             text-align: center;
             margin-top: 100px;
             padding: 40px 20px;
-            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            border-top: 1px solid rgba(255, 20, 147, 0.1);
         }
 
         .footer-text {
@@ -279,7 +279,7 @@
         }
 
         .footer-link {
-            color: #d4af37;
+            color: #ff1493;
             text-decoration: none;
             font-size: 13px;
             letter-spacing: 2px;
@@ -288,7 +288,7 @@
         }
 
         .footer-link:hover {
-            border-bottom: 1px solid #d4af37;
+            border-bottom: 1px solid #ff1493;
         }
 
         @media (max-width: 768px) {
