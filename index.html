@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floriya - Exclusive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@200;300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0.5;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+        }
+
+        .main-container {
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .logo-mark {
+            width: 4px;
+            height: 60px;
+            background: linear-gradient(180deg, transparent, #d4af37, transparent);
+            margin: 0 auto 40px;
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; box-shadow: 0 0 30px #d4af37; }
+        }
+
+        .profile-wrapper {
+            perspective: 1000px;
+        }
+
+        .profile-box {
+            background: rgba(20, 20, 20, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            backdrop-filter: blur(20px);
+            padding: 80px 60px;
+            position: relative;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .profile-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(255, 255, 255, 0.02));
+            opacity: 0;
+            transition: opacity 0.6s;
+        }
+
+        .profile-box:hover::before {
+            opacity: 1;
+        }
+
+        .corner {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 1px solid #d4af37;
+        }
+
+        .corner.tl { top: 20px; left: 20px; border-right: none; border-bottom: none; }
+        .corner.tr { top: 20px; right: 20px; border-left: none; border-bottom: none; }
+        .corner.bl { bottom: 20px; left: 20px; border-right: none; border-top: none; }
+        .corner.br { bottom: 20px; right: 20px; border-left: none; border-top: none; }
+
+        .avatar-container {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 50px;
+            position: relative;
+        }
+
+        .avatar-ring {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px solid transparent;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #d4af37, #f4e4c1, #d4af37);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            padding: 2px;
+            animation: rotate 8s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 90px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 72px;
+            font-weight: 300;
+            letter-spacing: 8px;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #d4af37, #f4e4c1, #d4af37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .handle {
+            font-size: 16px;
+            letter-spacing: 4px;
+            color: rgba(212, 175, 55, 0.6);
+            font-weight: 300;
+            margin-bottom: 50px;
+        }
+
+        .divider {
+            width: 120px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            margin: 40px auto;
+        }
+
+        .bio {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 22px;
+            line-height: 1.9;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 650px;
+            margin: 0 auto 60px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-link {
+            display: inline-block;
+            padding: 18px 50px;
+            border: 1px solid #d4af37;
+            color: #d4af37;
+            text-decoration: none;
+            font-size: 13px;
+            letter-spacing: 3px;
+            font-weight: 300;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            background: transparent;
+        }
+
+        .cta-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: #d4af37;
+            transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: -1;
+        }
+
+        .cta-link:hover {
+            color: #0a0a0a;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.3);
+        }
+
+        .cta-link:hover::before {
+            left: 0;
+        }
+
+        .metrics {
+            display: flex;
+            justify-content: center;
+            gap: 100px;
+            margin-top: 80px;
+            padding-top: 60px;
+            border-top: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        .metric {
+            text-align: center;
+        }
+
+        .metric-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 48px;
+            font-weight: 300;
+            color: #d4af37;
+            display: block;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .metric-label {
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.4);
+            text-transform: uppercase;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 100px;
+            padding: 40px 20px;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .footer-text {
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .footer-link {
+            color: #d4af37;
+            text-decoration: none;
+            font-size: 13px;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            border-bottom: 1px solid transparent;
+        }
+
+        .footer-link:hover {
+            border-bottom: 1px solid #d4af37;
+        }
+
+        @media (max-width: 768px) {
+            .profile-box { padding: 60px 30px; }
+            .name { font-size: 48px; letter-spacing: 4px; }
+            .bio { font-size: 18px; }
+            .metrics { flex-direction: column; gap: 40px; }
+            .corner { width: 20px; height: 20px; }
+            .corner.tl, .corner.tr { top: 15px; }
+            .corner.bl, .corner.br { bottom: 15px; }
+            .corner.tl, .corner.bl { left: 15px; }
+            .corner.tr, .corner.br { right: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="grain"></div>
+    <canvas id="flowerCanvas"></canvas>
+    
+    <div class="content">
+        <div class="main-container">
+            <div class="hero">
+                <div class="logo-mark"></div>
+            </div>
+
+            <div class="profile-wrapper">
+                <div class="profile-box">
+                    <div class="corner tl"></div>
+                    <div class="corner tr"></div>
+                    <div class="corner bl"></div>
+                    <div class="corner br"></div>
+
+                    <div class="avatar-container">
+                        <div class="avatar-ring"></div>
+                        <div class="avatar">🌸</div>
+                    </div>
+
+                    <h1 class="name">FLORIYA</h1>
+                    <p class="handle">@floriyaaaaaa</p>
+                    
+                    <div class="divider"></div>
+                    
+                    <p class="bio">
+                        A curator of refined aesthetics and timeless elegance. 
+                        Devoted to the art of living beautifully, one moment at a time.
+                    </p>
+
+                    <a href="https://x.com/floriyaaaaaa" target="_blank" class="cta-link">Enter Profile</a>
+
+                    <div class="metrics">
+                        <div class="metric">
+                            <span class="metric-value">Elite</span>
+                            <span class="metric-label">Following</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-value">Prestige</span>
+                            <span class="metric-label">Content</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-value">Exclusive</span>
+                            <span class="metric-label">Network</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p class="footer-text">Crafted By</p>
+                <a href="https://x.com/ega_2ez4crypto" target="_blank" class="footer-link">@ega_2ez4crypto</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('flowerCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const flowers = [];
+        const flowerTypes = ['🌸', '🌺', '🏵️', '💮'];
+
+        class Flower {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.char = flowerTypes[Math.floor(Math.random() * flowerTypes.length)];
+                this.speed = 0.2 + Math.random() * 0.5;
+                this.drift = (Math.random() - 0.5) * 0.3;
+                this.size = 20 + Math.random() * 25;
+                this.opacity = 0.1 + Math.random() * 0.2;
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = (Math.random() - 0.5) * 0.5;
+            }
+
+            update() {
+                this.y += this.speed;
+                this.x += this.drift;
+                this.rotation += this.rotationSpeed;
+
+                if (this.y > canvas.height + 50) {
+                    this.y = -50;
+                    this.x = Math.random() * canvas.width;
+                }
+
+                if (this.x < -50) this.x = canvas.width + 50;
+                if (this.x > canvas.width + 50) this.x = -50;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.opacity;
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation * Math.PI / 180);
+                ctx.font = `${this.size}px Arial`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(this.char, 0, 0);
+                ctx.restore();
+            }
+        }
+
+        for (let i = 0; i < 35; i++) {
+            flowers.push(new Flower());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            flowers.forEach(flower => {
+                flower.update();
+                flower.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        document.querySelector('.profile-box').addEventListener('mousemove', (e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = (y - centerY) / 50;
+            const rotateY = (centerX - x) / 50;
+            
+            e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        document.querySelector('.profile-box').addEventListener('mouseleave', (e) => {
+            e.currentTarget.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+        });
+    </script>
+</body>
+</html>
