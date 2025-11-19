@@ -233,6 +233,73 @@
             left: 0;
         }
 
+        .music-player {
+            margin: 50px auto;
+            max-width: 500px;
+            background: rgba(30, 30, 30, 0.5);
+            border: 1px solid rgba(255, 20, 147, 0.3);
+            padding: 30px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .player-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .player-icon {
+            font-size: 24px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .player-title {
+            font-size: 12px;
+            letter-spacing: 3px;
+            color: rgba(255, 20, 147, 0.8);
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+
+        #audioPlayer {
+            width: 100%;
+            margin: 20px 0;
+            outline: none;
+            filter: brightness(0.8) saturate(1.5) hue-rotate(-20deg);
+        }
+
+        #audioPlayer::-webkit-media-controls-panel {
+            background: linear-gradient(135deg, rgba(255, 20, 147, 0.1), rgba(255, 105, 180, 0.05));
+        }
+
+        .track-info {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .track-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            color: #fff;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+
+        .track-artist {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
         .metrics {
             display: flex;
             justify-content: center;
@@ -296,6 +363,7 @@
             .name { font-size: 48px; letter-spacing: 4px; }
             .bio { font-size: 18px; }
             .metrics { flex-direction: column; gap: 40px; }
+            .music-player { padding: 20px; }
             .corner { width: 20px; height: 20px; }
             .corner.tl, .corner.tr { top: 15px; }
             .corner.bl, .corner.br { bottom: 15px; }
@@ -337,6 +405,23 @@
                     </p>
 
                     <a href="https://x.com/floriyaaaaaa" target="_blank" class="cta-link">Enter Profile</a>
+
+                    <div class="divider"></div>
+
+                    <div class="music-player">
+                        <div class="player-header">
+                            <span class="player-icon">🎵</span>
+                            <span class="player-title">Now Playing</span>
+                        </div>
+                        <audio id="audioPlayer" controls>
+                            <source src="https://files.catbox.moe/vv0atk.mp3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                        <div class="track-info">
+                            <div class="track-name">Floriya's Theme</div>
+                            <div class="track-artist">Exclusive Collection</div>
+                        </div>
+                    </div>
 
                     <div class="metrics">
                         <div class="metric">
